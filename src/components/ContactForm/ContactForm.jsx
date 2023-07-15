@@ -1,37 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
-import { getContacts } from 'redux/selectors';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/operations';
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
-  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
-  const isDuplicate = ({ name, number }) => {
-    const normalizedName = name.toLowerCase().trim();
-    const normalizedNumber = number.trim();
-
-    const duplicate = contacts.find(
-      ({ name, number }) =>
-        name.toLowerCase().trim() === normalizedName ||
-        number.trim() === normalizedNumber
-    );
-    return Boolean(duplicate);
-  };
 
   const saveContact = event => {
     event.preventDefault();
     const form = event.currentTarget;
     const name = form.elements.name.value;
-    const number = form.elements.number.value;
-    if (isDuplicate({ name, number })) {
-      return alert(
-        contacts.find(contact => contact.name === name)
-          ? `${name} is already in contacts`
-          : `${number} is already in contacts`
-      );
-    }
-    dispatch(addContact({ name, number }));
+    const phone = form.elements.number.value;
+    dispatch(addContact({ name, phone }));
     form.reset();
   };
 

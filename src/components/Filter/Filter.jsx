@@ -4,12 +4,11 @@ import { getFilter } from 'redux/selectors';
 import css from './Filter.module.css';
 
 export const Filter = () => {
-  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
 
-  const changeFilter = event => {
+  const handleFilterChange = event =>
     dispatch(setFilter(event.target.value.toLowerCase().trim()));
-  };
 
   return (
     <section className={css.filter}>
@@ -20,7 +19,7 @@ export const Filter = () => {
           name="filter"
           placeholder="Enter name"
           value={filter}
-          onChange={changeFilter}
+          onChange={handleFilterChange}
         />
       </label>
     </section>

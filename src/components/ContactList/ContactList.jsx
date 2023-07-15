@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
-import { getFilteredContacts } from 'redux/selectors';
+import { deleteContact } from 'redux/operations';
+import { getContacts } from 'redux/selectors';
 import css from './ContactList.module.css';
 
 export const ContactList = () => {
-  const filteredContacts = useSelector(getFilteredContacts);
+  const contacts = useSelector(getContacts);
 
   const dispatch = useDispatch();
 
@@ -15,10 +15,10 @@ export const ContactList = () => {
   return (
     <section className={css.list}>
       <ul>
-        {filteredContacts.map(({ id, name, number }) => (
+        {contacts.map(({ id, name, phone }) => (
           <li className={css.item} key={id}>
             <span className={css.text}>{name}</span>
-            <span className={css.text}>{number}</span>
+            <span className={css.text}>{phone}</span>
             <button
               type="button"
               className={css.button}
